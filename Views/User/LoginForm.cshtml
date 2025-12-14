@@ -1,0 +1,15 @@
+﻿@model WebApplication_f.ViewModels.User
+<form method="post" action="/User/Login">
+    <div class="form-group">
+        <label>Login : </label>
+        <input class="form-control" asp-for="Login" />
+        <span class="text-danger" asp-validation-for="Login"></span>
+    </div>
+    <div class="form-group">
+        <label>Password : </label>
+        <input class="form-control" asp-for="Password" />
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
+
+    <input type="submit" class="btn btn-primary" value="Se connecter" />
+</form>
