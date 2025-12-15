@@ -5,6 +5,14 @@ namespace WebApplication_f.Controllers
 {
     public class UserController : Controller
     {
+        public IActionResult Index()
+        {
+            if(HttpContext.Session.GetString("isAuth") == null)
+            {
+                return RedirectToAction("LoginForm", "User");
+            }
+            return View();
+        }
         public IActionResult LoginForm()
         {
             return View();
@@ -14,9 +22,19 @@ namespace WebApplication_f.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Logique de verfication
+                string password = new string(u.Password.Reverse());
+                if (u.Login == password)
+                {
+                    HttpContext.Session.SetString("isAuth", "");
+                    return RedirectToAction("Index", "Home");
+                }
             }
             return View("LoginForm");
+        }
+        public IActionResult Logout(User u)
+        {
+                    HttpContext.Session.Clear();
+                    return RedirectToAction("LoginForm");
         }
     }
 }
